@@ -10,16 +10,21 @@ import SwiftUI
 @main
 struct PokedexApp: App {
     @StateObject var viewModel = PokedexViewModel()
-    @State var loaded: Bool = false
+    @State var databaseIsLoaded: Bool = false
+    @State var allPokemonDidLoad: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            if loaded == false {
+            if databaseIsLoaded == false || allPokemonDidLoad == false {
                 LoadingView()
                     .task {
-                        loaded = await viewModel.establishConnection()
+                        while (databaseIsLoaded == false || allPokemonDidLoad == false) {
+                            databaseIsLoaded = await viewModel.establishConnection()
+                            allPokemonDidLoad = await viewModel.loadPokemonFromDB()
+                        }
                     }
             } else {
-                ListView()
+                ListView().environmentObject(viewModel)
             }
         }
     }
