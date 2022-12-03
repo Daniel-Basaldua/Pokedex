@@ -9,12 +9,18 @@ import SwiftUI
 
 @main
 struct PokedexApp: App {
-    
+    @StateObject var viewModel = PokedexViewModel()
+    @State var loaded: Bool = false
     var body: some Scene {
         WindowGroup {
-            //NavigationView {
+            if loaded == false {
+                LoadingView()
+                    .task {
+                        loaded = await viewModel.establishConnection()
+                    }
+            } else {
                 ListView()
-            //}
+            }
         }
     }
 }

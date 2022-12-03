@@ -28,6 +28,7 @@ class PokedexViewModel: ObservableObject {
        tls: .disable
     )
     
+    @MainActor
     func establishConnection() async -> Bool {
         do {
             self.connection = try await PostgresConnection.connect(

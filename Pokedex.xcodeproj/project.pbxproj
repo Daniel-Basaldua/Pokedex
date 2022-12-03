@@ -82,9 +82,9 @@
 		DB1A2B8429385016008EF5A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DBFCEC9D293B28EE00A12234 /* LoadingView.swift */,
 				DB1492F829358AC400BBF7C7 /* ListView.swift */,
 				DB1A2B87293850F4008EF5A3 /* DetailView.swift */,
-				DBFCEC9D293B28EE00A12234 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
