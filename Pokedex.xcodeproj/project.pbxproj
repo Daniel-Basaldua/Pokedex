@@ -15,6 +15,7 @@
 		DB1A2B8A2938590D008EF5A3 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1A2B892938590D008EF5A3 /* Pokemon.swift */; };
 		DBD28AAF2939365A00F1AD7E /* PostgresNIO in Frameworks */ = {isa = PBXBuildFile; productRef = DBD28AAE2939365A00F1AD7E /* PostgresNIO */; };
 		DBE923BA293C6B6E0058AD52 /* PokeMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE923B9293C6B6D0058AD52 /* PokeMove.swift */; };
+		DBE923BC293C90B80058AD52 /* CompareStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE923BB293C90B80058AD52 /* CompareStatsView.swift */; };
 		DBFCEC98293B213200A12234 /* PokedexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCEC97293B213200A12234 /* PokedexViewModel.swift */; };
 		DBFCEC9E293B28EE00A12234 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCEC9D293B28EE00A12234 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		DB1A2B87293850F4008EF5A3 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		DB1A2B892938590D008EF5A3 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		DBE923B9293C6B6D0058AD52 /* PokeMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeMove.swift; sourceTree = "<group>"; };
+		DBE923BB293C90B80058AD52 /* CompareStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareStatsView.swift; sourceTree = "<group>"; };
 		DBFCEC97293B213200A12234 /* PokedexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewModel.swift; sourceTree = "<group>"; };
 		DBFCEC9D293B28EE00A12234 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 				DBFCEC9D293B28EE00A12234 /* LoadingView.swift */,
 				DB1492F829358AC400BBF7C7 /* ListView.swift */,
 				DB1A2B87293850F4008EF5A3 /* DetailView.swift */,
+				DBE923BB293C90B80058AD52 /* CompareStatsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				DB1492F929358AC400BBF7C7 /* ListView.swift in Sources */,
 				DB1A2B8A2938590D008EF5A3 /* Pokemon.swift in Sources */,
+				DBE923BC293C90B80058AD52 /* CompareStatsView.swift in Sources */,
 				DBE923BA293C6B6E0058AD52 /* PokeMove.swift in Sources */,
 				DB1A2B88293850F4008EF5A3 /* DetailView.swift in Sources */,
 				DBFCEC98293B213200A12234 /* PokedexViewModel.swift in Sources */,

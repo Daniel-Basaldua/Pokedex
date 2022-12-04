@@ -1,15 +1,35 @@
 //
-//  ContentView.swift
+//  CompareStatsView.swift
 //  Pokedex
 //
-//  Created by Daniel Basaldua on 11/28/22.
+//  Created by Daniel Basaldua on 12/4/22.
 //
 
 import SwiftUI
 
-struct ListView: View {
+struct CompareStatsView: View {
     @EnvironmentObject var viewModel: PokedexViewModel
     @State private var searchText: String = ""
+    
+    @State private var pokemon1IsChoosen = false
+    @State private var pokemon1: Pokemon = Pokemon(name: "Mew", type_one: "Psychic", type_two: nil)
+    @State private var hp1: String = "-1"
+    @State private var atk1: String = "-1"
+    @State private var def1: String = "-1"
+    @State private var spAtk1: String = "-1"
+    @State private var spDef1: String = "-1"
+    @State private var special1: String = "-1"
+    @State private var total1: String = "-1"
+    
+    @State private var pokemon2IsChoosen = false
+    @State private var pokemon2: Pokemon = Pokemon(name: "Mew", type_one: "Psychic", type_two: nil)
+    @State private var hp2: String = "-1"
+    @State private var atk2: String = "-1"
+    @State private var def2: String = "-1"
+    @State private var spAtk2: String = "-1"
+    @State private var spDef2: String = "-1"
+    @State private var special2: String = "-1"
+    @State private var total2: String = "-1"
     
     var filteredPokemon: [Pokemon] {
         if searchText.isEmpty {
@@ -20,35 +40,128 @@ struct ListView: View {
     }
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(filteredPokemon, id: \.id) { pokemon in
-                    NavigationLink(destination: DetailView(pokemon: pokemon).environmentObject(viewModel)) {
-                        Text(pokemon.name)
+        ZStack {
+            APP_COLOR.ignoresSafeArea()
+            VStack {
+                Spacer()
+                HStack {
+                    if pokemon1IsChoosen == false {
+                        List {
+                            ForEach(filteredPokemon, id: \.id) { pokemon in
+                                Button {
+                                    pokemon1 = pokemon
+                                    pokemon1IsChoosen.toggle()
+                                } label: {
+                                    Text(pokemon.name)
+                                }
+                            }
+                            .listRowBackground(APP_COLOR.ignoresSafeArea())
+                        }
+                        .background(APP_COLOR.ignoresSafeArea())
+                        .listStyle(.plain)
+                    } else {
+                        VStack {
+                            Text(pokemon1.name).font(.largeTitle).padding(.bottom)
+                            
+                            VStack {
+                                Text("Type One:\(pokemon1.type_one)").font(.title2)
+                                Text("Type Two:\(pokemon1.type_two ?? "None")").font(.title2)
+                            }.padding(.bottom)
+                            
+                            VStack {
+                                Text("Hp=\(hp1)").font(.title3)
+                                Text("Atk=\(atk1)").font(.title3)
+                                Text("Def=\(def1)").font(.title3)
+                                Text("Special=\(special1)").font(.title3)
+                                Text("SpAtk=\(spAtk1)").font(.title3)
+                                Text("SpDef=\(spDef1)").font(.title3)
+                            }.padding(.bottom)
+                            
+                            Text("Total=\(total1)").font(.title3).padding(.bottom)
+                            
+                            Button {
+                                pokemon1IsChoosen.toggle()
+                            } label: {
+                                Text("Done")
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                        .background(APP_COLOR.ignoresSafeArea())
+                        .task {
+                            let stats = await viewModel.getStats(name: pokemon1.name)
+                            hp1 = String(stats[0])
+                            atk1 = String(stats[1])
+                            def1 = String(stats[2])
+                            spAtk1 = String(stats[3])
+                            spDef1 = String(stats[4])
+                            special1 = String(stats[5])
+                            total1 = String(stats[6])
+                        }
+                    }
+                    Rectangle().frame(width: 1.0)
+                    if pokemon2IsChoosen == false {
+                        List {
+                            ForEach(filteredPokemon, id: \.id) { pokemon in
+                                Button {
+                                    pokemon2 = pokemon
+                                    pokemon2IsChoosen.toggle()
+                                } label: {
+                                    Text(pokemon.name)
+                                }
+                            }
+                            .listRowBackground(APP_COLOR.ignoresSafeArea())
+                        }
+                        .background(APP_COLOR.ignoresSafeArea())
+                        .listStyle(.plain)
+                    } else {
+                        VStack {
+                            Text(pokemon2.name).font(.largeTitle).padding(.bottom)
+                            
+                            VStack {
+                                Text("Type One:\(pokemon2.type_one)").font(.title2)
+                                Text("Type Two:\(pokemon2.type_two ?? "None")").font(.title2)
+                            }.padding(.bottom)
+                            
+                            VStack {
+                                Text("Hp=\(hp2)").font(.title3)
+                                Text("Atk=\(atk2)").font(.title3)
+                                Text("Def=\(def2)").font(.title3)
+                                Text("Special=\(special2)").font(.title3)
+                                Text("SpAtk=\(spAtk2)").font(.title3)
+                                Text("SpDef=\(spDef2)").font(.title3)
+                            }.padding(.bottom)
+                            
+                            Text("Total=\(total2)").font(.title3).padding(.bottom)
+                            
+                            Button {
+                                pokemon2IsChoosen.toggle()
+                            } label: {
+                                Text("Done")
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                        .background(APP_COLOR.ignoresSafeArea())
+                        .task {
+                            let stats = await viewModel.getStats(name: pokemon2.name)
+                            hp2 = String(stats[0])
+                            atk2 = String(stats[1])
+                            def2 = String(stats[2])
+                            spAtk2 = String(stats[3])
+                            spDef2 = String(stats[4])
+                            special2 = String(stats[5])
+                            total2 = String(stats[6])
+                        }
                     }
                 }
-                .listRowBackground(APP_COLOR.ignoresSafeArea())
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CompareStatsView().environmentObject(viewModel)
-                    } label: {
-                        Text("Compare")
-                    }
-
-                }
-            }
-            .background(APP_COLOR.ignoresSafeArea())
-            .listStyle(.plain)
-            .navigationTitle("All Pokemon")
-            .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, prompt: "Search for a Pokemon")
+                .navigationTitle("Compare")
+                .searchable(text: $searchText, prompt: "Search for a Pokemon")
+                .background(APP_COLOR.ignoresSafeArea())
+            }.background(APP_COLOR.ignoresSafeArea())
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct CompareStatsView_Previews: PreviewProvider {
     static var previews: some View {
         let vm = PokedexViewModel()
         let pk: [Pokemon] = [
@@ -203,7 +316,7 @@ struct ContentView_Previews: PreviewProvider {
             Pokemon(name: "Mewtwo", type_one: "Psychic", type_two: nil),
             Pokemon(name: "Mew", type_one: "Psychic", type_two: nil),
         ]
-        ListView().environmentObject(vm)
+        CompareStatsView().environmentObject(vm)
             .task {
                 vm.pokemon = pk
             }
