@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+let APP_COLOR = Color.init(red: 0.9, green: 0.9, blue: 0.9)
+
 @main
 struct PokedexApp: App {
     @StateObject var viewModel = PokedexViewModel()
+    
     @State var databaseIsLoaded: Bool = false
     @State var allPokemonDidLoad: Bool = false
     

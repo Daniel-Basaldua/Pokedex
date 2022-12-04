@@ -10,4 +10,6 @@ import Foundation
 struct Pokemon: Identifiable {
     let id = UUID()
     let name: String
+    let type_one: String
+    let type_two: String?
 }

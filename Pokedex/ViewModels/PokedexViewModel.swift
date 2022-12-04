@@ -13,6 +13,7 @@ import Logging
 
 class PokedexViewModel: ObservableObject {
     @Published var pokemon: [Pokemon] = []
+    
     var connection: PostgresConnection?
     let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
     let logger = Logger(label: "postgres-logger")
@@ -50,8 +51,8 @@ class PokedexViewModel: ObservableObject {
     func loadPokemonFromDB() async -> Bool {
         do {
             let rows = try await connection?.query("SELECT * FROM pokemon;", logger: self.logger)
-            for try await (_, name, _, _) in rows!.decode((Int, String, String, String?).self, context: .default) {
-                pokemon.append(Pokemon(name: name))
+            for try await (_, name, type_one, type_two) in rows!.decode((Int, String, String, String?).self, context: .default) {
+                pokemon.append(Pokemon(name: name, type_one: type_one, type_two: type_two))
             }
             print("Pokemon loaded.")
             return true
@@ -59,5 +60,39 @@ class PokedexViewModel: ObservableObject {
             print("Pokemon could not be loaded.")
             return false
         }
+    }
+    
+    @MainActor
+    func getStats(name: String) async -> [Int]{
+        var temp: [Int] = [-1, -1, -1, -1, -1, -1, -1]
+        do {
+            let queryString = "SELECT hp, atk, def, spatk, spdef, special, total FROM pokemon, stats WHERE pokemon.id = stats.id AND pokemon.name = '\(name)';"
+            let pq = PostgresQuery(stringLiteral: queryString)
+            let rows = try await connection?.query(pq, logger: self.logger)
+            for try await (hp, atk, def, spAtk, spDef, special, total) in rows!.decode((Int, Int, Int, Int, Int, Int, Int).self, context: .default) {
+                temp = [hp, atk, def, spAtk, spDef, special, total]
+            }
+            print("Pokemon stats for \(name) loaded.")
+        } catch {
+            print("Pokemon stats for \(name) could not be loaded.")
+        }
+        return temp
+    }
+    
+    @MainActor
+    func getMoves(name: String) async -> [PokeMove]{
+        var temp: [PokeMove] = []
+        do {
+            let queryString = "SELECT DISTINCT learns.level, moves.name, moves.type, moves.power, moves.pp FROM pokemon, learns, moves WHERE pokemon.id = learns.pid AND learns.mid = moves.id AND pokemon.name = '\(name)' ORDER BY learns.level ASC;"
+            let pq = PostgresQuery(stringLiteral: queryString)
+            let rows = try await connection?.query(pq, logger: self.logger)
+            for try await (lvl, name, type, power, pp) in rows!.decode((Int, String, String, Int, Int).self, context: .default) {
+                temp.append(PokeMove(lvl: lvl, name: name, type: type, power: power, pp: pp))
+            }
+            print("Pokemon moves for \(name) loaded.")
+        } catch {
+            print("Pokemon moves for \(name) could not be loaded.")
+        }
+        return temp
     }
 }
