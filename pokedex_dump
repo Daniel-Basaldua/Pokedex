@@ -1,0 +1,1741 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: learns; Type: TABLE; Schema: public; Owner: cole
+--
+
+CREATE TABLE public.learns (
+    pid integer,
+    mid integer,
+    level integer
+);
+
+
+ALTER TABLE public.learns OWNER TO cole;
+
+--
+-- Name: moves; Type: TABLE; Schema: public; Owner: cole
+--
+
+CREATE TABLE public.moves (
+    move_id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    type character varying(25) NOT NULL,
+    power smallint NOT NULL,
+    pp smallint NOT NULL
+);
+
+
+ALTER TABLE public.moves OWNER TO cole;
+
+--
+-- Name: pokemon; Type: TABLE; Schema: public; Owner: cole
+--
+
+CREATE TABLE public.pokemon (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    type_one character varying(50) NOT NULL,
+    type_two character varying(50)
+);
+
+
+ALTER TABLE public.pokemon OWNER TO cole;
+
+--
+-- Name: stats; Type: TABLE; Schema: public; Owner: cole
+--
+
+CREATE TABLE public.stats (
+    id integer NOT NULL,
+    hp integer NOT NULL,
+    atk integer NOT NULL,
+    def integer NOT NULL,
+    spatk integer NOT NULL,
+    spdef integer NOT NULL,
+    special integer NOT NULL,
+    total integer NOT NULL
+);
+
+
+ALTER TABLE public.stats OWNER TO cole;
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE; Schema: public; Owner: cole
+--
+
+CREATE SEQUENCE public.stats_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stats_id_seq OWNER TO cole;
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cole
+--
+
+ALTER SEQUENCE public.stats_id_seq OWNED BY public.stats.id;
+
+
+--
+-- Name: stats id; Type: DEFAULT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.stats ALTER COLUMN id SET DEFAULT nextval('public.stats_id_seq'::regclass);
+
+
+--
+-- Data for Name: learns; Type: TABLE DATA; Schema: public; Owner: cole
+--
+
+COPY public.learns (pid, mid, level) FROM stdin;
+1	33	1
+1	45	1
+1	73	7
+1	22	13
+1	77	20
+1	75	27
+1	74	34
+1	79	41
+1	76	48
+2	33	1
+2	45	1
+2	73	1
+2	73	7
+2	22	13
+2	77	22
+2	75	30
+2	74	38
+2	79	46
+2	76	54
+3	22	1
+3	33	1
+3	45	1
+3	73	1
+3	73	7
+3	22	13
+3	77	22
+3	75	30
+3	74	43
+3	79	55
+3	76	65
+4	10	1
+4	45	1
+4	52	9
+4	43	15
+4	99	22
+4	163	30
+4	53	38
+4	83	46
+5	10	1
+5	45	1
+5	52	1
+5	52	9
+5	43	15
+5	99	24
+5	163	33
+5	53	42
+5	83	56
+6	10	1
+6	43	1
+6	45	1
+6	52	1
+6	52	9
+6	43	15
+6	99	24
+6	163	36
+6	53	46
+6	83	55
+7	33	1
+7	39	1
+7	145	8
+7	55	15
+7	44	22
+7	110	28
+7	130	35
+7	56	42
+8	33	1
+8	39	1
+8	145	1
+8	145	8
+8	55	15
+8	44	24
+8	110	31
+8	130	39
+8	56	47
+9	33	1
+9	39	1
+9	55	1
+9	145	1
+9	145	8
+9	55	15
+9	44	24
+9	110	31
+9	130	42
+9	56	52
+10	33	1
+10	81	1
+11	106	1
+12	93	1
+12	93	12
+12	77	15
+12	78	16
+12	79	17
+12	48	21
+12	18	26
+12	60	32
+13	40	1
+13	81	1
+14	106	1
+15	31	1
+15	31	12
+15	116	16
+15	41	20
+15	99	25
+15	42	30
+15	97	35
+16	16	1
+16	28	5
+16	98	12
+16	18	19
+16	17	28
+16	97	36
+16	119	44
+17	16	1
+17	28	1
+17	28	5
+17	98	12
+17	18	21
+17	17	31
+17	97	40
+17	119	49
+18	16	1
+18	28	1
+18	98	1
+18	28	5
+18	98	12
+18	18	21
+18	17	31
+18	97	44
+18	119	54
+19	33	1
+19	39	1
+19	98	7
+19	158	14
+19	116	23
+19	162	34
+20	33	1
+20	39	1
+20	98	1
+20	98	7
+20	158	14
+20	116	27
+20	162	41
+21	45	1
+21	64	1
+21	43	9
+21	31	15
+21	119	22
+21	65	29
+21	97	36
+22	43	1
+22	45	1
+22	64	1
+22	43	9
+22	31	15
+22	119	25
+22	65	34
+22	97	43
+23	35	1
+23	43	1
+23	40	10
+23	44	17
+23	137	24
+23	103	31
+23	51	38
+24	35	1
+24	40	1
+24	43	1
+24	40	10
+24	44	17
+24	137	27
+24	103	36
+24	51	47
+25	45	1
+25	84	1
+25	86	9
+25	98	16
+25	129	26
+25	97	33
+25	87	43
+26	45	1
+26	84	1
+26	86	1
+27	10	1
+27	28	10
+27	163	17
+27	40	24
+27	129	31
+27	154	38
+28	10	1
+28	28	1
+28	28	10
+28	163	17
+28	40	27
+28	129	36
+28	154	47
+29	33	1
+29	45	1
+29	10	8
+29	40	14
+29	39	21
+29	44	29
+29	154	36
+29	24	43
+30	10	1
+30	33	1
+30	45	1
+30	10	8
+30	40	14
+30	39	23
+30	44	32
+30	154	41
+30	24	50
+31	10	1
+31	33	1
+31	34	1
+31	39	1
+31	10	8
+31	40	14
+31	34	23
+33	30	1
+33	33	1
+33	43	1
+33	30	8
+33	40	14
+33	116	23
+33	31	32
+33	32	41
+33	24	50
+34	30	1
+34	33	1
+34	37	1
+34	40	1
+34	30	8
+34	40	14
+34	37	23
+35	1	1
+35	45	1
+35	47	13
+35	3	18
+35	107	24
+35	118	31
+35	111	39
+35	113	48
+36	3	1
+36	47	1
+36	107	1
+36	118	1
+37	39	1
+37	52	1
+37	98	16
+37	46	21
+37	109	28
+37	53	35
+37	83	42
+38	39	1
+38	46	1
+38	52	1
+38	98	1
+39	47	1
+39	1	9
+39	50	14
+39	111	19
+39	3	24
+39	156	29
+39	34	34
+39	38	39
+40	3	1
+40	47	1
+40	50	1
+40	111	1
+41	141	1
+41	48	10
+41	44	15
+41	109	21
+41	17	28
+41	114	36
+42	44	1
+42	103	1
+42	141	1
+42	48	10
+42	44	15
+42	109	21
+42	17	32
+42	114	43
+43	71	1
+43	77	15
+43	78	17
+43	79	19
+43	51	24
+43	80	33
+43	76	46
+44	71	1
+44	77	1
+44	78	1
+44	77	15
+44	78	17
+44	79	19
+44	51	28
+44	80	38
+44	76	52
+45	51	1
+45	78	1
+45	79	1
+45	80	1
+45	77	15
+45	78	17
+45	79	19
+46	10	1
+46	78	13
+46	141	20
+46	147	27
+46	163	34
+46	74	41
+47	10	1
+47	78	1
+47	141	1
+47	78	13
+47	141	20
+47	147	30
+47	163	39
+47	74	48
+48	33	1
+48	50	1
+48	77	24
+48	141	27
+48	78	30
+48	60	35
+48	79	38
+48	94	43
+49	33	1
+49	50	1
+49	77	1
+49	141	1
+49	77	24
+49	141	27
+49	78	30
+49	60	38
+49	79	43
+49	94	50
+50	10	1
+50	45	15
+50	91	19
+50	28	24
+50	163	31
+50	89	40
+51	10	1
+51	45	1
+51	91	1
+51	45	15
+51	91	19
+51	28	24
+51	163	35
+51	89	47
+52	10	1
+52	45	1
+52	44	12
+52	6	17
+52	103	24
+52	154	33
+52	163	44
+53	10	1
+53	44	1
+53	45	1
+53	103	1
+53	44	12
+53	6	17
+53	103	24
+53	154	37
+53	163	51
+54	10	1
+54	39	28
+54	50	31
+54	93	36
+54	154	43
+54	56	52
+55	10	1
+55	39	1
+55	50	1
+55	39	28
+55	50	31
+55	93	39
+55	154	48
+55	56	59
+56	10	1
+56	43	1
+56	2	15
+56	154	21
+56	116	27
+56	69	33
+56	37	39
+57	2	1
+57	10	1
+57	43	1
+57	154	1
+57	2	15
+57	154	21
+57	116	27
+57	69	37
+57	37	46
+58	44	1
+58	46	1
+58	52	18
+58	43	23
+58	36	30
+58	97	39
+58	53	50
+59	36	1
+59	43	1
+59	46	1
+59	52	1
+60	145	1
+60	95	16
+60	55	19
+60	3	25
+60	34	31
+60	133	38
+60	56	45
+61	55	1
+61	95	1
+61	145	1
+61	95	16
+61	55	19
+61	3	26
+61	34	33
+61	133	41
+61	56	49
+62	3	1
+62	34	1
+62	55	1
+62	95	1
+62	95	16
+62	55	19
+63	100	1
+64	50	1
+64	93	1
+64	100	1
+64	93	16
+64	50	20
+64	60	27
+64	105	31
+64	94	38
+64	115	42
+65	50	1
+65	93	1
+65	100	1
+65	93	16
+65	50	20
+65	60	27
+65	105	31
+65	94	38
+65	115	42
+66	2	1
+66	67	20
+66	43	25
+66	116	32
+66	69	39
+66	66	46
+67	2	1
+67	43	1
+67	67	1
+67	67	20
+67	43	25
+67	116	36
+67	69	44
+67	66	52
+68	2	1
+68	43	1
+68	67	1
+68	67	20
+68	43	25
+68	116	36
+68	69	44
+68	66	52
+69	22	1
+69	74	1
+69	35	13
+69	77	15
+69	79	18
+69	78	21
+69	51	26
+69	75	33
+69	21	42
+70	22	1
+70	35	1
+70	74	1
+70	35	13
+70	77	15
+70	79	18
+70	78	23
+70	51	29
+70	75	38
+70	21	49
+71	51	1
+71	75	1
+71	78	1
+71	79	1
+71	35	13
+71	77	15
+71	79	18
+72	51	1
+72	48	7
+72	35	13
+72	40	18
+72	55	22
+72	132	27
+72	112	33
+72	103	40
+72	56	48
+73	35	1
+73	48	1
+73	51	1
+73	48	7
+73	35	13
+73	40	18
+73	55	22
+73	132	27
+73	112	35
+73	103	43
+73	56	50
+74	33	1
+74	111	11
+74	88	16
+74	120	21
+74	106	26
+74	89	31
+74	153	36
+75	33	1
+75	111	1
+75	111	11
+75	88	16
+75	120	21
+75	106	29
+75	89	36
+75	153	43
+76	33	1
+76	111	1
+76	111	11
+76	88	16
+76	120	21
+76	106	29
+76	89	36
+76	153	43
+77	52	1
+77	39	30
+77	23	32
+77	45	35
+77	83	39
+77	36	43
+77	97	48
+78	23	1
+78	39	1
+78	45	1
+78	52	1
+78	39	30
+78	23	32
+78	45	35
+78	83	39
+78	36	47
+78	97	55
+79	93	1
+79	50	18
+79	29	22
+79	45	27
+79	55	33
+79	133	40
+79	94	48
+80	29	1
+80	50	1
+80	93	1
+80	50	18
+80	29	22
+80	45	27
+80	55	33
+80	110	37
+80	133	44
+80	94	55
+81	33	1
+81	49	21
+81	84	25
+81	48	29
+81	86	35
+81	129	41
+81	103	47
+82	33	1
+82	49	1
+82	84	1
+82	49	21
+82	84	25
+82	48	29
+82	86	38
+82	129	46
+82	103	54
+83	28	1
+83	64	1
+83	43	7
+83	31	15
+83	14	23
+83	97	31
+83	163	39
+84	64	1
+84	45	20
+84	31	24
+84	65	30
+84	99	36
+84	161	40
+84	97	44
+85	31	1
+85	45	1
+85	64	1
+85	45	20
+85	31	24
+85	65	30
+85	99	39
+85	161	45
+85	97	51
+86	29	1
+86	45	30
+86	62	35
+86	156	40
+86	36	45
+86	58	50
+87	29	1
+87	45	1
+87	62	1
+87	45	30
+87	62	35
+87	156	44
+87	36	50
+87	58	56
+88	1	1
+88	50	1
+88	139	30
+88	107	33
+88	124	37
+88	106	42
+88	103	48
+88	151	55
+89	1	1
+89	50	1
+89	139	1
+89	139	30
+89	107	33
+89	124	37
+89	106	45
+89	103	53
+89	151	60
+90	33	1
+90	110	1
+90	48	18
+90	128	23
+90	62	30
+90	43	39
+90	58	50
+91	48	1
+91	62	1
+91	110	1
+91	128	1
+91	131	50
+92	101	1
+92	109	1
+92	122	1
+92	95	27
+92	138	35
+93	101	1
+93	109	1
+93	122	1
+93	95	29
+93	138	38
+94	101	1
+94	109	1
+94	122	1
+94	95	29
+94	138	38
+95	33	1
+95	103	1
+95	20	15
+95	88	19
+95	99	25
+95	21	33
+95	106	43
+96	1	1
+96	95	1
+96	50	12
+96	93	17
+96	29	24
+96	139	29
+96	94	32
+96	96	37
+97	1	1
+97	50	1
+97	93	1
+97	95	1
+97	50	12
+97	93	17
+97	29	24
+97	139	33
+97	94	37
+97	96	43
+98	43	1
+98	145	1
+98	11	20
+98	12	25
+98	23	30
+98	152	35
+98	106	40
+99	11	1
+99	43	1
+99	145	1
+99	11	20
+99	12	25
+99	23	34
+99	152	42
+99	106	49
+100	33	1
+100	103	1
+100	49	17
+100	120	22
+100	113	29
+100	129	36
+100	153	43
+101	33	1
+101	49	1
+101	103	1
+101	49	17
+101	120	22
+101	113	29
+101	129	40
+101	153	50
+102	95	1
+102	140	1
+102	115	25
+102	73	28
+102	78	32
+102	77	37
+102	76	42
+102	79	48
+103	95	1
+103	140	1
+103	23	28
+104	45	1
+104	125	1
+104	43	25
+104	116	31
+104	37	38
+104	155	43
+104	99	46
+105	43	1
+105	45	1
+105	116	1
+105	125	1
+105	43	25
+105	116	33
+105	37	41
+105	155	48
+105	99	55
+106	24	1
+106	96	1
+106	27	33
+106	26	38
+106	116	43
+106	136	48
+106	25	53
+107	4	1
+107	97	1
+107	7	33
+107	8	38
+107	9	43
+107	5	48
+107	68	53
+108	35	1
+108	48	1
+108	23	7
+108	50	15
+108	111	23
+108	21	31
+108	103	39
+109	33	1
+109	123	1
+109	124	32
+109	108	37
+109	120	40
+109	114	45
+109	153	48
+110	33	1
+110	123	1
+110	124	1
+110	124	32
+110	108	39
+110	120	43
+110	114	49
+110	153	53
+111	30	1
+111	23	30
+111	39	35
+111	31	40
+111	32	45
+111	43	50
+111	36	55
+112	23	1
+112	30	1
+112	31	1
+112	39	1
+112	23	30
+112	39	35
+112	31	40
+112	32	48
+112	43	55
+112	36	64
+113	1	1
+113	3	1
+113	47	24
+113	45	30
+113	107	38
+113	111	44
+113	113	48
+113	38	54
+114	20	1
+114	132	1
+114	71	29
+114	77	32
+114	78	36
+114	79	39
+114	21	45
+114	74	49
+115	4	1
+115	99	1
+115	44	26
+115	39	31
+115	5	36
+115	43	41
+115	146	46
+116	145	1
+116	108	19
+116	43	24
+116	55	30
+116	97	37
+116	56	45
+117	108	1
+117	145	1
+117	108	19
+117	43	24
+117	55	30
+117	97	41
+117	56	52
+118	39	1
+118	64	1
+118	48	19
+118	30	24
+118	31	30
+118	127	37
+118	32	45
+118	97	54
+119	39	1
+119	48	1
+119	64	1
+119	48	19
+119	30	24
+119	31	30
+119	127	39
+119	32	48
+119	97	54
+120	33	1
+120	55	17
+120	106	22
+120	105	27
+120	129	32
+120	107	37
+120	113	42
+120	56	47
+121	33	1
+121	55	1
+121	106	1
+122	93	1
+122	112	1
+122	93	15
+122	113	23
+122	3	31
+122	96	39
+122	164	47
+123	98	1
+123	43	17
+123	116	20
+123	104	24
+123	163	29
+123	14	35
+123	97	42
+124	1	1
+124	142	1
+124	122	18
+124	3	23
+124	8	31
+124	34	39
+124	37	47
+124	59	58
+125	43	1
+125	98	1
+125	84	34
+125	103	37
+125	9	42
+125	113	49
+125	87	54
+126	52	1
+126	43	36
+126	109	39
+126	7	43
+126	108	48
+126	123	52
+126	53	55
+127	11	1
+127	69	25
+127	12	30
+127	116	36
+127	106	43
+127	163	49
+127	14	54
+128	33	1
+128	23	21
+128	39	28
+128	43	35
+128	99	44
+128	36	51
+129	150	1
+129	33	15
+130	43	1
+130	44	1
+130	56	1
+130	82	1
+130	44	20
+130	82	25
+130	43	32
+130	56	41
+130	63	52
+131	45	1
+131	55	1
+131	47	16
+131	54	20
+131	34	25
+131	109	31
+131	58	38
+131	56	46
+132	144	1
+133	28	1
+133	33	1
+133	98	27
+133	39	31
+133	44	37
+133	36	45
+134	28	1
+134	33	1
+134	55	1
+134	98	1
+134	98	27
+134	55	31
+134	39	37
+134	44	40
+134	151	42
+134	114	44
+134	54	48
+134	56	54
+135	28	1
+135	33	1
+135	84	1
+135	98	1
+135	98	27
+135	84	31
+135	39	37
+135	86	40
+135	24	42
+135	97	44
+135	42	48
+135	87	54
+136	28	1
+136	33	1
+136	52	1
+136	98	1
+136	98	27
+136	52	31
+136	39	37
+136	44	40
+136	43	42
+136	83	44
+136	99	48
+136	53	54
+137	33	1
+137	159	1
+137	160	1
+137	60	23
+137	105	28
+137	97	35
+137	161	42
+138	55	1
+138	110	1
+138	30	34
+138	43	39
+138	131	46
+138	56	53
+139	30	1
+139	55	1
+139	110	1
+139	30	34
+139	43	39
+139	131	44
+139	56	49
+140	10	1
+140	106	1
+140	71	34
+140	163	39
+140	43	44
+140	56	49
+141	10	1
+141	71	1
+141	106	1
+141	71	34
+141	163	39
+141	43	46
+141	56	53
+142	17	1
+142	97	1
+142	48	33
+142	44	38
+142	36	45
+142	63	54
+143	29	1
+143	133	1
+143	156	1
+143	34	35
+143	106	41
+143	38	48
+143	63	56
+144	58	1
+144	64	1
+144	59	51
+144	97	55
+144	54	60
+145	65	1
+145	84	1
+145	87	51
+145	97	55
+145	113	60
+146	64	1
+146	83	1
+146	43	51
+146	97	55
+146	143	60
+147	35	1
+147	43	1
+147	86	10
+147	97	20
+147	21	30
+147	82	40
+147	63	50
+148	35	1
+148	43	1
+148	86	1
+148	86	10
+148	97	20
+148	21	35
+148	82	45
+148	63	55
+149	35	1
+149	43	1
+149	86	1
+149	97	1
+149	86	10
+149	97	20
+149	21	35
+149	82	45
+149	63	60
+150	50	1
+150	93	1
+150	94	1
+150	129	1
+150	112	63
+150	94	66
+150	105	70
+150	54	75
+150	133	81
+151	1	1
+151	144	10
+151	5	20
+151	118	30
+151	94	40
+\.
+
+
+--
+-- Data for Name: moves; Type: TABLE DATA; Schema: public; Owner: cole
+--
+
+COPY public.moves (move_id, name, type, power, pp) FROM stdin;
+1	Pound	Normal	40	35
+2	Karate Chop	Fighting	50	25
+3	DoubleSlap	Normal	15	10
+4	Comet Punch	Normal	18	15
+5	Mega Punch	Normal	80	20
+6	Pay Day	Normal	40	20
+7	Fire Punch	Fire	75	15
+8	Ice Punch	Ice	75	15
+9	ThunderPunch	Electric	75	15
+10	Scratch	Normal	40	35
+11	ViceGrip	Normal	55	30
+12	Guillotine	Normal	0	5
+13	Razor Wind	Normal	80	10
+14	Swords Dance	Normal	0	30
+15	Cut	Normal	50	30
+16	Gust	Flying	40	35
+17	Wing Attack	Flying	60	35
+18	Whirlwind	Normal	0	20
+19	Fly	Flying	90	15
+20	Bind	Normal	15	20
+21	Slam	Normal	80	20
+22	Vine Whip	Grass	35	15
+23	Stomp	Normal	65	20
+24	Double Kick	Fighting	30	30
+25	Mega Kick	Normal	120	5
+26	Jump Kick	Fighting	100	10
+27	Rolling Kick	Fighting	60	15
+28	Sand-Attack	Ground	0	15
+29	Headbutt	Normal	70	15
+30	Horn Attack	Normal	65	25
+31	Fury Attack	Normal	15	20
+32	Horn Drill	Normal	0	5
+33	Tackle	Normal	50	35
+34	Body Slam	Normal	85	15
+35	Wrap	Normal	15	20
+36	Take Down	Normal	90	20
+37	Thrash	Normal	120	10
+38	Double-Edge	Normal	120	15
+39	Tail Whip	Normal	0	30
+40	Poison Sting	Poison	15	35
+41	Twineedle	Bug	25	20
+42	Pin Missile	Bug	14	20
+43	Leer	Normal	0	30
+44	Bite	Dark	60	25
+45	Growl	Normal	0	40
+46	Roar	Normal	0	20
+47	Sing	Normal	0	15
+48	Supersonic	Normal	0	20
+49	SonicBoom	Normal	20	20
+50	Disable	Normal	0	20
+51	Acid	Poison	40	30
+52	Ember	Fire	40	25
+53	Flamethrower	Fire	95	15
+54	Mist	Ice	0	30
+55	Water Gun	Water	40	25
+56	Hydro Pump	Water	120	5
+57	Surf	Water	95	15
+58	Ice Beam	Ice	95	10
+59	Blizzard	Ice	120	5
+60	Psybeam	Psychic	65	20
+61	BubbleBeam	Water	65	20
+62	Aurora Beam	Ice	65	20
+63	Hyper Beam	Normal	150	5
+64	Peck	Flying	35	35
+65	Drill Peck	Flying	80	20
+66	Submission	Fighting	80	25
+67	Low Kick	Fighting	50	20
+68	Counter	Fighting	50	20
+69	Seismic Toss	Fighting	50	20
+70	Strength	Normal	80	15
+71	Absorb	Grass	20	25
+72	Mega Drain	Grass	40	15
+73	Leech Seed	Grass	0	10
+74	Growth	Normal	0	40
+75	Razor Leaf	Grass	55	25
+76	SolarBeam	Grass	120	10
+77	PoisonPowder	Poison	0	35
+78	Stun Spore	Grass	0	30
+79	Sleep Powder	Grass	0	15
+80	Petal Dance	Grass	120	10
+81	String Shot	Bug	0	40
+82	Dragon Rage	Dragon	40	10
+83	Fire Spin	Fire	35	15
+84	ThunderShock	Electric	40	30
+85	Thunderbolt	Electric	95	15
+86	Thunder Wave	Electric	0	20
+87	Thunder	Electric	120	10
+88	Rock Throw	Rock	50	15
+89	Earthquake	Ground	100	10
+90	Fissure	Ground	0	5
+91	Dig	Ground	80	10
+92	Toxic	Poison	0	10
+93	Confusion	Psychic	50	25
+94	Psychic	Psychic	90	10
+95	Hypnosis	Psychic	0	20
+96	Meditate	Psychic	0	40
+97	Agility	Psychic	0	30
+98	Quick Attack	Normal	40	30
+99	Rage	Normal	20	20
+100	Teleport	Psychic	0	20
+101	Night Shade	Ghost	50	15
+102	Mimic	Normal	0	10
+103	Screech	Normal	0	40
+104	Double Team	Normal	0	15
+105	Recover	Normal	0	10
+106	Harden	Normal	0	30
+107	Minimize	Normal	0	20
+108	SmokeScreen	Normal	0	20
+109	Confuse Ray	Ghost	0	10
+110	Withdraw	Water	0	40
+111	Defense Curl	Normal	0	40
+112	Barrier	Psychic	0	30
+113	Light Screen	Psychic	0	30
+114	Haze	Ice	0	30
+115	Reflect	Psychic	0	20
+116	Focus Energy	Normal	0	30
+117	Bide	Normal	50	10
+118	Metronome	Normal	0	10
+119	Mirror Move	Flying	0	20
+120	Selfdestruct	Normal	200	5
+121	Egg Bomb	Normal	100	10
+122	Lick	Ghost	20	30
+123	Smog	Poison	20	20
+124	Sludge	Poison	65	20
+125	Bone Club	Ground	65	20
+126	Fire Blast	Fire	120	5
+127	Waterfall	Water	80	15
+128	Clamp	Water	35	10
+129	Swift	Normal	60	20
+130	Skull Bash	Normal	100	15
+131	Spike Cannon	Normal	20	15
+132	Constrict	Normal	10	35
+133	Amnesia	Psychic	0	20
+134	Kinesis	Psychic	0	15
+135	Softboiled	Normal	0	10
+136	Hi Jump Kick	Fighting	130	10
+137	Glare	Normal	0	30
+138	Dream Eater	Psychic	100	15
+139	Poison Gas	Poison	0	40
+140	Barrage	Normal	15	20
+141	Leech Life	Bug	20	15
+142	Lovely Kiss	Normal	0	10
+143	Sky Attack	Flying	140	5
+144	Transform	Normal	0	10
+145	Bubble	Water	20	30
+146	Dizzy Punch	Normal	70	10
+147	Spore	Grass	0	15
+148	Flash	Normal	0	20
+149	Psywave	Psychic	50	15
+150	Splash	Normal	0	40
+151	Acid Armor	Poison	0	40
+152	Crabhammer	Water	90	10
+153	Explosion	Normal	250	5
+154	Fury Swipes	Normal	18	15
+155	Bonemerang	Ground	50	10
+156	Rest	Psychic	0	10
+157	Rock Slide	Rock	75	10
+158	Hyper Fang	Normal	80	15
+159	Sharpen	Normal	0	30
+160	Conversion	Normal	0	30
+161	Tri Attack	Normal	80	10
+162	Super Fang	Normal	50	10
+163	Slash	Normal	70	20
+164	Substitute	Normal	0	10
+165	Struggle	Normal	50	1
+\.
+
+
+--
+-- Data for Name: pokemon; Type: TABLE DATA; Schema: public; Owner: cole
+--
+
+COPY public.pokemon (id, name, type_one, type_two) FROM stdin;
+1	Bulbasaur	Grass	Poison
+2	Ivysaur	Grass	Poison
+3	Venusaur	Grass	Poison
+4	Charmander	Fire	\N
+5	Charmeleon	Fire	\N
+6	Charizard	Fire	Flying
+7	Squirtle	Water	\N
+8	Wartortle	Water	\N
+9	Blastoise	Water	\N
+10	Caterpie	Bug	\N
+11	Metapod	Bug	\N
+12	Butterfree	Bug	Flying
+13	Weedle	Bug	Poison
+14	Kakuna	Bug	Poison
+15	Beedrill	Bug	Poison
+16	Pidgey	Normal	Flying
+17	Pidgeotto	Normal	Flying
+18	Pidgeot	Normal	Flying
+19	Rattata	Normal	\N
+20	Raticate	Normal	\N
+21	Spearow	Normal	Flying
+22	Fearow	Normal	Flying
+23	Ekans	Poison	\N
+24	Arbok	Poison	\N
+25	Pikachu	Electric	\N
+26	Raichu	Electric	\N
+27	Sandshrew	Ground	\N
+28	Sandslash	Ground	\N
+29	Nidoran	Poison	\N
+30	Nidorina	Poison	\N
+31	Nidoqueen	Poison	Ground
+33	Nidorino	Poison	\N
+34	Nidoking	Poison	Ground
+35	Clefairy	Normal	\N
+36	Clefable	Normal	\N
+37	Vulpix	Fire	\N
+38	Ninetales	Fire	\N
+39	Jigglypuff	Normal	\N
+40	Wigglytuff	Normal	\N
+41	Zubat	Poison	Flying
+42	Golbat	Poison	Flying
+43	Oddish	Grass	Poison
+44	Gloom	Grass	Poison
+45	Vileplume	Grass	Poison
+46	Paras	Bug	Grass
+47	Parasect	Bug	Grass
+48	Venonat	Bug	Poison
+49	Venomoth	Bug	Poison
+50	Diglett	Ground	\N
+51	Dugtrio	Ground	\N
+52	Meowth	Normal	\N
+53	Persian	Normal	\N
+54	Psyduck	Water	\N
+55	Golduck	Water	\N
+56	Mankey	Fighting	\N
+57	Primeape	Fighting	\N
+58	Growlithe	Fire	\N
+59	Arcanine	Fire	\N
+60	Poliwag	Water	\N
+61	Poliwhirl	Water	\N
+62	Poliwrath	Water	Fighting
+63	Abra	Psychic	\N
+64	Kadabra	Psychic	\N
+65	Alakazam	Psychic	\N
+66	Machop	Fighting	\N
+67	Machoke	Fighting	\N
+68	Machamp	Fighting	\N
+69	Bellsprout	Grass	Poison
+70	Weepinbell	Grass	Poison
+71	Victreebel	Grass	Poison
+72	Tentacool	Water	Poison
+73	Tentacruel	Water	Poison
+74	Geodude	Rock	Ground
+75	Graveler	Rock	Ground
+76	Golem	Rock	Ground
+77	Ponyta	Fire	\N
+78	Rapidash	Fire	\N
+79	Slowpoke	Water	Psychic
+80	Slowbro	Water	Psychic
+81	Magnemite	Electric	Steel
+82	Magneton	Electric	Steel
+83	Farfetch'd	Normal	Flying
+84	Doduo	Normal	Flying
+85	Dodrio	Normal	Flying
+86	Seel	Water	\N
+87	Dewgong	Water	Ice
+88	Grimer	Poison	\N
+89	Muk	Poison	\N
+90	Shellder	Water	\N
+91	Cloyster	Water	Ice
+92	Gastly	Ghost	Poison
+93	Haunter	Ghost	Poison
+94	Gengar	Ghost	Poison
+95	Onix	Rock	Ground
+96	Drowzee	Psychic	\N
+97	Hypno	Psychic	\N
+98	Krabby	Water	\N
+99	Kingler	Water	\N
+100	Voltorb	Electric	\N
+101	Electrode	Electric	\N
+102	Exeggcute	Grass	Psychic
+103	Exeggutor	Grass	Psychic
+104	Cubone	Ground	\N
+105	Marowak	Ground	\N
+106	Hitmonlee	Fighting	\N
+107	Hitmonchan	Fighting	\N
+108	Lickitung	Normal	\N
+109	Koffing	Poison	\N
+110	Weezing	Poison	\N
+111	Rhyhorn	Ground	Rock
+112	Rhydon	Ground	Rock
+113	Chansey	Normal	\N
+114	Tangela	Grass	\N
+115	Kangaskhan	Normal	\N
+116	Horsea	Water	\N
+117	Seadra	Water	\N
+118	Goldeen	Water	\N
+119	Seaking	Water	\N
+120	Staryu	Water	\N
+121	Starmie	Water	Psychic
+122	Mr. Mime	Psychic	\N
+123	Scyther	Bug	Flying
+124	Jynx	Ice	Psychic
+125	Electabuzz	Electric	\N
+126	Magmar	Fire	\N
+127	Pinsir	Bug	\N
+128	Tauros	Normal	\N
+129	Magikarp	Water	\N
+130	Gyarados	Water	Flying
+131	Lapras	Water	Ice
+132	Ditto	Normal	\N
+133	Eevee	Normal	\N
+134	Vaporeon	Water	\N
+135	Jolteon	Electric	\N
+136	Flareon	Fire	\N
+137	Porygon	Normal	\N
+138	Omanyte	Rock	Water
+139	Omastar	Rock	Water
+140	Kabuto	Rock	Water
+141	Kabutops	Rock	Water
+142	Aerodactyl	Rock	Flying
+143	Snorlax	Normal	\N
+144	Articuno	Ice	Flying
+145	Zapdos	Electric	Flying
+146	Moltres	Fire	Flying
+147	Dratini	Dragon	\N
+148	Dragonair	Dragon	\N
+149	Dragonite	Dragon	Flying
+150	Mewtwo	Psychic	\N
+151	Mew	Psychic	\N
+\.
+
+
+--
+-- Data for Name: stats; Type: TABLE DATA; Schema: public; Owner: cole
+--
+
+COPY public.stats (id, hp, atk, def, spatk, spdef, special, total) FROM stdin;
+1	45	49	49	65	65	45	318
+2	60	62	63	80	80	60	405
+3	80	82	83	100	100	80	525
+4	39	52	43	60	50	65	309
+5	58	64	58	80	65	80	405
+6	78	84	78	109	85	100	534
+7	44	48	65	60	54	43	314
+8	59	63	80	65	80	58	405
+9	79	83	100	85	105	78	530
+10	45	30	35	20	20	45	195
+11	50	20	55	25	25	30	205
+12	60	45	50	80	80	70	385
+13	40	35	30	20	20	50	195
+14	45	25	50	25	25	35	205
+15	65	80	40	40	80	75	380
+16	40	45	40	35	35	56	251
+17	63	60	55	50	50	71	349
+18	83	80	75	70	70	91	469
+19	30	56	35	25	35	72	253
+20	55	81	60	50	70	97	413
+21	40	60	30	31	31	70	262
+22	65	90	65	61	61	100	442
+23	30	60	44	40	54	55	283
+24	60	85	69	65	79	80	438
+25	35	55	30	50	40	90	300
+26	60	90	55	90	80	100	475
+27	50	75	85	20	30	40	300
+28	75	100	110	45	55	65	450
+29	55	47	52	40	40	41	275
+30	70	62	67	55	55	56	365
+31	90	82	87	75	85	76	495
+33	61	72	57	55	55	65	365
+34	81	92	77	85	75	85	495
+35	70	45	48	60	65	35	323
+36	95	70	73	85	90	60	473
+37	38	41	40	50	65	65	299
+38	73	76	75	81	100	100	505
+39	115	45	20	45	25	20	270
+40	140	70	45	75	50	45	425
+41	40	45	35	30	40	55	245
+42	75	80	70	65	75	90	455
+43	45	50	55	75	65	30	320
+44	60	65	70	85	75	40	395
+45	75	80	85	100	90	50	480
+46	35	70	55	45	55	25	285
+47	60	95	80	60	80	30	405
+48	60	55	50	40	55	45	305
+49	70	65	60	90	75	90	450
+50	10	55	25	35	45	95	265
+51	35	80	50	50	70	120	405
+52	40	45	35	40	40	90	290
+53	65	70	60	65	65	115	440
+54	50	52	48	65	50	55	320
+55	80	82	78	95	80	85	500
+56	40	80	35	35	45	70	305
+57	65	105	60	60	70	95	455
+58	55	70	45	70	50	60	350
+59	90	110	80	100	80	95	555
+60	40	50	40	40	40	90	300
+61	65	65	65	50	50	90	385
+62	90	85	95	70	90	70	500
+63	25	20	15	105	55	90	310
+64	40	35	30	120	70	105	400
+65	55	50	45	135	85	120	490
+66	70	80	50	35	35	35	305
+67	80	100	70	50	60	45	405
+68	90	130	80	65	85	55	505
+69	50	75	35	70	30	40	300
+70	65	90	50	85	45	55	390
+71	80	105	65	100	60	70	480
+72	40	40	35	50	100	70	335
+73	80	70	65	80	120	100	515
+74	40	80	100	30	30	20	300
+75	55	95	115	45	45	35	390
+76	80	110	130	55	65	45	485
+77	50	85	55	65	65	90	410
+78	65	100	70	80	80	105	500
+79	90	65	65	40	40	15	315
+80	95	75	110	100	80	30	490
+81	25	35	70	95	55	45	325
+82	50	60	95	120	70	70	465
+83	52	65	55	58	62	60	352
+84	35	85	45	35	35	75	310
+85	60	110	70	60	60	100	460
+86	65	45	55	45	70	45	325
+87	90	70	80	70	95	70	475
+88	80	80	50	40	50	25	325
+89	105	105	75	65	100	50	500
+90	30	65	100	45	25	40	305
+91	50	90	180	85	45	70	520
+92	30	35	30	100	35	80	310
+93	45	50	45	115	55	95	405
+94	60	65	60	130	75	110	500
+95	35	45	160	30	45	70	385
+96	60	48	45	43	90	42	328
+97	85	73	70	73	115	67	483
+98	30	105	90	25	25	50	325
+99	55	130	115	50	50	75	475
+100	40	30	50	55	55	100	330
+101	60	50	70	80	80	140	480
+102	60	40	80	60	45	40	325
+103	95	95	85	125	65	55	520
+104	50	50	95	40	50	35	320
+105	60	80	110	50	80	45	425
+106	50	120	53	35	110	87	455
+107	50	105	79	35	110	76	455
+108	90	55	75	60	75	30	385
+109	40	65	95	60	45	35	340
+110	65	90	120	85	70	60	490
+111	80	85	95	30	30	25	345
+112	105	130	120	45	45	40	485
+113	250	5	5	35	105	50	450
+114	65	55	115	100	40	60	435
+115	105	95	80	40	80	90	490
+116	30	40	70	70	25	60	295
+117	55	65	95	95	45	85	440
+118	45	67	60	35	50	63	320
+119	80	92	65	65	80	68	450
+120	30	45	55	70	55	85	340
+121	60	75	85	100	85	115	520
+122	40	45	65	100	120	90	460
+123	70	110	80	55	80	105	500
+124	65	50	35	115	95	95	455
+125	65	83	57	95	85	105	490
+126	65	95	57	100	85	93	495
+127	65	125	100	55	70	85	500
+128	75	100	95	40	70	110	490
+129	20	10	55	15	20	80	200
+130	95	125	79	60	100	81	540
+131	130	85	80	85	95	60	535
+132	48	48	48	48	48	48	288
+133	55	55	50	45	65	55	325
+134	130	65	60	110	95	65	525
+135	65	65	60	110	95	130	525
+136	65	130	60	95	110	65	525
+137	65	60	70	85	75	40	395
+138	35	40	100	90	55	35	355
+139	70	60	125	115	70	55	495
+140	30	80	90	55	45	55	355
+141	60	115	105	65	70	80	495
+142	80	105	65	60	75	130	515
+143	160	110	65	65	110	30	540
+144	90	85	100	95	125	85	580
+145	90	90	85	125	90	100	580
+146	90	100	90	125	85	90	580
+147	41	64	45	50	50	50	300
+148	61	84	65	70	70	70	420
+149	91	134	95	100	100	80	600
+150	106	110	90	154	90	130	680
+151	100	100	100	100	100	100	600
+\.
+
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cole
+--
+
+SELECT pg_catalog.setval('public.stats_id_seq', 1, false);
+
+
+--
+-- Name: moves moves_pkey; Type: CONSTRAINT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.moves
+    ADD CONSTRAINT moves_pkey PRIMARY KEY (move_id);
+
+
+--
+-- Name: pokemon pokemon_pkey; Type: CONSTRAINT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.pokemon
+    ADD CONSTRAINT pokemon_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stats stats_pkey; Type: CONSTRAINT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.stats
+    ADD CONSTRAINT stats_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: learns learns_mid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.learns
+    ADD CONSTRAINT learns_mid_fkey FOREIGN KEY (mid) REFERENCES public.moves(move_id);
+
+
+--
+-- Name: learns learns_pid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: cole
+--
+
+ALTER TABLE ONLY public.learns
+    ADD CONSTRAINT learns_pid_fkey FOREIGN KEY (pid) REFERENCES public.pokemon(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
